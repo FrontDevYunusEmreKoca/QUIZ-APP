@@ -69,4 +69,16 @@
     position: absolute;
     right: 10px;
     bottom: 5px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
+    transition: all 1s ease;
+}
+.quiz-box .options_list .option.disabled {
+    pointer-events: none;
+}
+.card-footer .next-btn.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
 }
