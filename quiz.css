@@ -1,0 +1,72 @@
+.btn-start, .quiz-box {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+.quiz-box.active{
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 2s ease;
+    transform: translate(-50%, -50%) scale(1);
+}
+.quiz-box {
+    width: 70%;
+    justify-content: center;
+    align-self: center;
+    margin: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 2s ease;
+    transform: translate(-50%, -50%) scale(0.5);
+
+}
+.quiz-box .card-header .title {
+    font-size: 20px;
+    font-weight: 600;
+}
+.quiz-box .card-body .question-text {
+    font-size: 25px;
+    font-weight: 600;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 10px;
+    border-radius: 15px;
+}
+.quiz-box .card-body .options_list{
+   padding: 18px 0; 
+}
+.quiz-box .card-body .options_list .option{
+  display: flex;
+    justify-content: space-between;
+    border: 1px solid #151d3b;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center;
+}
+.quiz-box .card-body .options_list .option:hover{
+    color: #112b2c;
+    background-color:#ffd33d ;
+}
+.quiz-box .card-body .options_list .option.correct{
+    color: #155724;
+    background-color:#caeed3 ;
+}
+.quiz-box .card-body .options_list .option.incorrect{
+    color: #721c24;
+    background-color:#f4c9cd ;
+}
+.card-footer{
+    position: relative;
+    display: block;
+    padding: 20px 0px;
+    margin-top: 0px;
+}
+.card-footer .next-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+}
