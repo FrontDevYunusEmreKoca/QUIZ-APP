@@ -58,17 +58,44 @@ Soru.prototype.cevabiKontrolEt = function (cevap){ // burada prototype in altina
 
 //sorulari gormek icin 
 
-let soru1 = new Soru("Hangisi bir js paket yonetim uygulamasidir", {a: "Node Js", b:"TypeScript",c:"Npm", }, "c")
-let soru2 = new Soru("Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "b")
+// let soru1 = new Soru("Hangisi bir js paket yonetim uygulamasidir", {a: "Node Js", b:"TypeScript",c:"Npm", }, "c")
+// let soru2 = new Soru("Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "b")
 
 
 let sorular =[
-    new Soru("1- Hangisi bir js paket yonetim uygulamasidir", {a: "Node Js", b:"TypeScript",c:"Npm", d:"Nuget"}, "a"),
-     new Soru("2- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "b"),
-     new Soru("3- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "b"),
-     new Soru("4- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "b"),
-     new Soru("5- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "b")
+    new Soru("1- Hangisi bir js paket yonetim uygulamasidir", {a: "Node Js", b:"TypeScript",c:"Npm", d:"Nuget"}, "c"),
+     new Soru("2- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "a"),
+     new Soru("3- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "c"),
+     new Soru("4- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "c"),
+     new Soru("5- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "c")
 ];
+
+function SoruGoster (soru){
+    let question = `<span> ${soru.soruMetni}</span>`;
+    let options = ``;
+    for (let  cevap in soru.cevapSecenekleri){
+        options += `
+        <div class="option">
+            <span><b>${cevap}</b>: ${soru.cevapSecenekleri[cevap]}</span>
+        </div>
+       
+        `;
+    }
+ 
+
+
+    document.querySelector(".question-text").innerHTML = question;
+    
+    options_list.innerHTML = options;
+
+    const option = options_list.querySelectorAll(".option");
+    
+  
+    for (let opt of option){
+       opt.setAttribute("onclick", "optionSelected(this)")
+    }
+
+}
 
 ///
 // for (let s of sorular){
@@ -96,59 +123,49 @@ const quiz = new Quiz(sorular);
 
 
 document.querySelector(".btn-start").addEventListener("click",function(){
-    if (quiz.sorular.length != quiz.SoruIndex){
-        document.querySelector(".quiz-box").classList.add("active")
-        SoruGoster(quiz.SoruGetir());
-        quiz.SoruIndex += 1;
-    }
-    else {
-      alert ("Quiz Bitti.")
-    }
    
+        document.querySelector(".quiz-box").classList.add("active");
+        SoruGoster(quiz.SoruGetir());
+        document.querySelector(".next-btn").classList.remove("show");      
 })
 document.querySelector(".next-btn").addEventListener("click" ,function (){
-    if (quiz.sorular.length != quiz.SoruIndex){
+    if (quiz.sorular.length != quiz.SoruIndex + 1){
+        quiz.SoruIndex +=1;
+        SoruGoster(quiz.SoruGetir());
         document.querySelector(".quiz-box").classList.add("active")
         SoruGoster(quiz.SoruGetir());
-        quiz.SoruIndex += 1;
+        document.querySelector(".next-btn").classList.remove("show")
+      
     }
     else {
       alert ("Quiz Bitti.")
     }
 })
 
-function SoruGoster (soru){
-    let question = `<span> ${soru.soruMetni}</span>`;
-    let options = ``;
-    for (let  cevap in soru.cevapSecenekleri){
-        options += `
-        <div class="option">
-            <span><b>${cevap}</b>: ${soru.cevapSecenekleri[cevap]}</span>
-        </div>
-       
-        `;
-    }
-    const options_list = document.querySelector(".options_list");
-    document.querySelector(".question-text").innerHTML = question;
-    
-    options_list.innerHTML = options;
+const options_list = document.querySelector(".options_list");
+const correct_icon = `<div class="icon">
+<div class="fas fa-check"></div>
+</div>`;
+const incorrect_icon = `<div class="icon">
+<div class="fas fa-times"></div>
+</div>`;
 
-    const option = options_list.querySelectorAll(".option");
 
-    for (let opt of option){
-        opt.setAttribute("onclick", "optionSelected(this)")
-    }
-
-}
-function optionSelected (option){
-   let cevap = option.querySelector("span b").textContent
+function optionSelected(option){
+   let cevap = option.querySelector("span b").textContent;
    let soru = quiz.SoruGetir();
-
-   if(soru.cevabiKontrolEt(cevap)){
-    option.classList.add("correct")
+  
+   
+   if (soru.cevabiKontrolEt(cevap)){
+    option.classList.add("correct");
+    option.insertAdjacentHTML("beforeend", correct_icon)
    }
    else {
-    option.classList.add("incorrect")
+     option.classList.add("incorrect");
+     option.insertAdjacentHTML("beforeend", incorrect_icon)
    }
+   for (let i=0; i<options_list.children.length; i++){
+    options_list.children[i].classList.add("disabled")
+   }
+   document.querySelector(".next-btn").classList.add("show");
 }
-       
