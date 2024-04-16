@@ -1,4 +1,4 @@
-.btn-start, .quiz-box {
+.btn-start, .quiz-box, .score-box {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -86,4 +86,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.score-box{
+    width: 60%;
+    justify-content: center;
+    align-self: center;
+    margin: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 2s ease;
+    transform: translate(-50%, -50%) scale(0.5);
+    padding: 50px;
+    text-align: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.score-box.active{
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 2s ease;
+    transform: translate(-50%, -50%) scale(1);
+}
+.fa-crown{
+  font-size: 75px;
+}
+.score-text{
+    font-size: 18px;
+    font-weight: 500;
 }
