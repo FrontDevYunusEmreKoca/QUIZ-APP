@@ -42,13 +42,17 @@ function SoruGoster (soru){
 document.querySelector(".btn-start").addEventListener("click",function(){
    
         document.querySelector(".quiz-box").classList.add("active");
+        StartTimer(10);  
         SoruGoster(quiz.SoruGetir());
         SoruSayisiGoster(quiz.SoruIndex +1, quiz.sorular.length );
-        document.querySelector(".next-btn").classList.remove("show");      
+        document.querySelector(".next-btn").classList.remove("show");  
+         
 })
 document.querySelector(".next-btn").addEventListener("click" ,function (){
     if (quiz.sorular.length != quiz.SoruIndex + 1){
         quiz.SoruIndex +=1;
+        clearInterval(counter);
+        StartTimer(10); 
         SoruGoster(quiz.SoruGetir());
         SoruSayisiGoster(quiz.SoruIndex +1, quiz.sorular.length );
         document.querySelector(".quiz-box").classList.add("active")
@@ -57,7 +61,7 @@ document.querySelector(".next-btn").addEventListener("click" ,function (){
       
     }
     else {
-      
+        clearInterval(counter);
       document.querySelector(".quiz-box").classList.remove("active")
       document.querySelector(".score-box").classList.add("active")
       SkoruGoster(quiz.sorular.length , quiz.dogruCevapSayisi);
@@ -114,3 +118,31 @@ const btn_replay = document.querySelector(".btn_replay").addEventListener("click
     document.querySelector(".score-box").classList.remove("active");
 
 });
+
+
+let counter ;
+function StartTimer (time){
+    counter = setInterval(timer, 1000); // timer ismindeki fonksiyonu bulucak ve 1 sn de bir cagiracak
+
+    function timer (){
+        let tag = `Süre bitti`
+      document.querySelector(".time-second").textContent = time;
+      time--;
+      if (time < 0){
+        clearInterval(counter)
+        document.querySelector(".timer").textContent = tag;
+
+        let cevap = quiz.SoruGetir().dogruCevap;
+
+        for (let option of options_list.children){
+           if (option.querySelector("span b").textContent == cevap){
+            option.classList.add("correct");
+            option.insertAdjacentHTML("beforeend", correct_icon)
+
+           }
+        option.classList.add("disabled");
+        }
+        document.querySelector(".next-btn").classList.add("show")
+      }
+    }
+}

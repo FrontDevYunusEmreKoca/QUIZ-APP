@@ -62,11 +62,10 @@ Soru.prototype.cevabiKontrolEt = function (cevap){ // burada prototype in altina
 
 
 let sorular =[
-    new Soru("1- Hangisi bir js paket yonetim uygulamasidir", {a: "Node Js", b:"TypeScript",c:"Npm", d:"Nuget"}, "c"),
-     new Soru("2- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "a"),
-     new Soru("3- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "c"),
-     new Soru("4- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "c"),
-     new Soru("5- Hangisi bir .net paket yonetim uygulamasidir", {a: "Node Js", b:"Nuget",c:"Npm"}, "c")
+    new Soru("1- Hangisi bir javascript paket yönetim uygulamasıdır", {a: "Node Js", b:"TypeScript",c:"Npm", d:"Nuget"}, "c"),
+     new Soru("2- Hangisi frontend kapsamında değerlendirilmez", {a: "Css", b:"HTML",c:"JavaScript" , d:"Sql"}, "d"),
+     new Soru("3- Hangisi  backend kapsamında değerlendirilmez", {a: "Node Js", b:"TypeScript",c:"Angular" , d:"React"}, "a"),
+     new Soru("4- Hangisi JavaScript programlama dilini bağlamaz", {a: "React Js", b:"Angular",c:"Vuev js" ,d:"Asp.net"}, "d")
 ];
 
 
