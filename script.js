@@ -57,7 +57,10 @@ document.querySelector(".next-btn").addEventListener("click" ,function (){
       
     }
     else {
-      alert ("Quiz Bitti.")
+      
+      document.querySelector(".quiz-box").classList.remove("active")
+      document.querySelector(".score-box").classList.add("active")
+      SkoruGoster(quiz.sorular.length , quiz.dogruCevapSayisi);
     }
 })
 
@@ -76,6 +79,7 @@ function optionSelected(option){
   
    
    if (soru.cevabiKontrolEt(cevap)){
+    quiz.dogruCevapSayisi += 1; 
     option.classList.add("correct");
     option.insertAdjacentHTML("beforeend", correct_icon)
    }
@@ -94,3 +98,19 @@ function SoruSayisiGoster (SoruSirasi, toplamSoruSayisi){
     let tag = `<span class="badge bg-warning">${SoruSirasi} / ${toplamSoruSayisi} </span>`;
     document.querySelector(".quiz-box .question_index").innerHTML = tag;
 }
+
+function SkoruGoster (toplamSoruSayisi , dogruCevapSayisi){
+    let tag = `Toplam ${toplamSoruSayisi} sorudan ${dogruCevapSayisi} doğru cevap verdiniz.`;
+    document.querySelector(".score-box .score-text").innerHTML = tag;
+}
+
+const btn_quit = document.querySelector(".btn_quit").addEventListener("click",function (){
+    window.location.reload(); ///sayfa tekrardan yuklenir.
+});
+const btn_replay = document.querySelector(".btn_replay").addEventListener("click", function(){
+    quiz.SoruIndex = 0;
+    quiz.dogruCevapSayisi = 0;
+    document.querySelector(".btn-start").click();
+    document.querySelector(".score-box").classList.remove("active");
+
+});
