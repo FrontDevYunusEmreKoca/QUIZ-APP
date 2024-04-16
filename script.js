@@ -43,6 +43,7 @@ document.querySelector(".btn-start").addEventListener("click",function(){
    
         document.querySelector(".quiz-box").classList.add("active");
         StartTimer(10);  
+        startTimerLine();
         SoruGoster(quiz.SoruGetir());
         SoruSayisiGoster(quiz.SoruIndex +1, quiz.sorular.length );
         document.querySelector(".next-btn").classList.remove("show");  
@@ -52,7 +53,10 @@ document.querySelector(".next-btn").addEventListener("click" ,function (){
     if (quiz.sorular.length != quiz.SoruIndex + 1){
         quiz.SoruIndex +=1;
         clearInterval(counter);
+        clearInterval(counter_line);
         StartTimer(10); 
+        startTimerLine();
+        
         SoruGoster(quiz.SoruGetir());
         SoruSayisiGoster(quiz.SoruIndex +1, quiz.sorular.length );
         document.querySelector(".quiz-box").classList.add("active")
@@ -62,6 +66,7 @@ document.querySelector(".next-btn").addEventListener("click" ,function (){
     }
     else {
         clearInterval(counter);
+        clearInterval(counter_line);
       document.querySelector(".quiz-box").classList.remove("active")
       document.querySelector(".score-box").classList.add("active")
       SkoruGoster(quiz.sorular.length , quiz.dogruCevapSayisi);
@@ -78,6 +83,8 @@ const incorrect_icon = `<div class="icon">
 
 
 function optionSelected(option){
+    clearInterval(counter)
+    clearInterval(counter_line);
    let cevap = option.querySelector("span b").textContent;
    let soru = quiz.SoruGetir();
   
@@ -125,12 +132,13 @@ function StartTimer (time){
     counter = setInterval(timer, 1000); // timer ismindeki fonksiyonu bulucak ve 1 sn de bir cagiracak
 
     function timer (){
-        let tag = `Süre bitti`
+       
       document.querySelector(".time-second").textContent = time;
       time--;
       if (time < 0){
         clearInterval(counter)
-        document.querySelector(".timer").textContent = tag;
+        
+        document.querySelector(".time-text").textContent = "Süre bitti";
 
         let cevap = quiz.SoruGetir().dogruCevap;
 
@@ -144,5 +152,25 @@ function StartTimer (time){
         }
         document.querySelector(".next-btn").classList.add("show")
       }
+    }
+}
+
+
+
+let counter_line;
+function startTimerLine (){
+    let line_width = 0;
+   
+
+   counter_line = setInterval(timer, 100)
+    
+    function timer (){
+         line_width +=5;
+        document.querySelector(".time_line").style.width =line_width + "px"
+
+        if (line_width > 549 ){
+            clearInterval(counter_line)
+        }
+
     }
 }

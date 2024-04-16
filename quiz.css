@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%) scale(1);
 }
 .quiz-box {
-    width: 70%;
+    width: 550px;
     justify-content: center;
     align-self: center;
     margin: auto;
@@ -84,6 +84,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 .score-box{
     width: 60%;
@@ -136,4 +137,14 @@
   width: 25px;
   text-align: center;
   align-items: center;
+}
+.time_line{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: #143f68;
+   
+
 }
